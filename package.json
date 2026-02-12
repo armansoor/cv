@@ -1,0 +1,24 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "This is my new CV. This is made by the use of various templates and codes.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/armansoor/cv.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.8",
+    "font-awesome": "^4.7.0",
+    "fullpage.js": "^4.0.40",
+    "swiper": "^12.1.0",
+    "vite": "^7.3.1"
+  }
+}
