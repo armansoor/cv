@@ -1,0 +1,252 @@
+:root {
+  --bg-color: #1a1a2e;
+  --panel-bg: #ffffff;
+  --text-color: #16213e;
+  --accent-pink: #ff2e63;
+  --accent-cyan: #08d9d6;
+  --accent-yellow: #f9ed69;
+  --border-color: #000000;
+  --border-width: 4px;
+  --shadow-offset: 8px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.comic-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(var(--text-color) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.1;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Header */
+.main-header {
+  padding: 4rem 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.comic-title {
+  font-family: 'Bangers', cursive;
+  font-size: 6rem;
+  color: var(--accent-yellow);
+  text-transform: uppercase;
+  text-shadow:
+    4px 4px 0 var(--border-color),
+    8px 8px 0 var(--accent-pink);
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.subtitle {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  color: var(--accent-cyan);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background-color: var(--text-color);
+  padding: 0.5rem 1rem;
+  display: inline-block;
+  transform: rotate(-2deg);
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: 5px 5px 0 var(--accent-pink);
+}
+
+/* Glitch Effect */
+.glitch {
+  animation: glitch 1s linear infinite;
+}
+
+@keyframes glitch {
+  2%, 64% { transform: translate(2px,0) skew(0deg); }
+  4%, 60% { transform: translate(-2px,0) skew(0deg); }
+  62% { transform: translate(0,0) skew(5deg); }
+}
+
+/* Main Grid */
+.comic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex: 1;
+}
+
+/* Panels */
+.panel {
+  background-color: var(--panel-bg);
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--border-color);
+  padding: 2rem;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.panel:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: calc(var(--shadow-offset) + 2px) calc(var(--shadow-offset) + 2px) 0 var(--border-color);
+}
+
+.panel {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --base-rotate: 0deg;
+  transform: var(--base-rotate) perspective(1000px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+}
+
+.panel:nth-child(1) { --base-rotate: rotate(1deg); }
+.panel:nth-child(2) { --base-rotate: rotate(-1deg); }
+.panel:nth-child(3) { --base-rotate: rotate(1.5deg); }
+/* Hover effect handled by JS for tilt, but we can add scale or translate here if needed,
+   though JS overrides transform. Using variables avoids override issues. */
+
+
+.panel-title {
+  font-family: 'Bangers', cursive;
+  font-size: 2.5rem;
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  text-decoration: underline;
+  text-decoration-color: var(--accent-cyan);
+  text-decoration-thickness: 4px;
+}
+
+/* Specific Panel Styles */
+.about-panel {
+  border-top: 8px solid var(--accent-pink);
+}
+
+.skills-panel {
+  border-top: 8px solid var(--accent-yellow);
+}
+
+.contact-panel {
+  border-top: 8px solid var(--accent-cyan);
+}
+
+/* Speech Bubble */
+.speech-bubble {
+  background: #f0f0f0;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 2px solid var(--border-color);
+  position: relative;
+}
+
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 20px;
+  border-width: 20px 20px 0;
+  border-style: solid;
+  border-color: var(--border-color) transparent;
+  display: block;
+  width: 0;
+}
+
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  left: 22px;
+  border-width: 18px 18px 0;
+  border-style: solid;
+  border-color: #f0f0f0 transparent;
+  display: block;
+  width: 0;
+  z-index: 1;
+}
+
+/* List */
+.comic-list {
+  list-style: none;
+}
+
+.comic-list li {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  position: relative;
+  font-weight: 700;
+}
+
+.comic-list li::before {
+  content: '>';
+  position: absolute;
+  left: 0;
+  color: var(--accent-pink);
+  font-family: 'Bangers', cursive;
+}
+
+/* Contact */
+.contact-details p {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.contact-details a {
+  color: var(--accent-pink);
+  text-decoration: none;
+  font-weight: 700;
+  background: linear-gradient(to top, var(--accent-yellow) 50%, transparent 50%);
+  background-size: 100% 200%;
+  background-position: top;
+  transition: background-position 0.3s;
+}
+
+.contact-details a:hover {
+  background-position: bottom;
+  color: var(--text-color);
+}
+
+/* Footer */
+.main-footer {
+  text-align: center;
+  padding: 2rem;
+  margin-top: 2rem;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .comic-title {
+    font-size: 4rem;
+  }
+
+  .comic-grid {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .panel {
+    transform: rotate(0) !important; /* Remove rotation on mobile for cleaner look */
+  }
+}
