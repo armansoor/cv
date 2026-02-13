@@ -7,3 +7,10 @@
 
   ➜  Local:   http://localhost:3000/
   ➜  Network: use --host to expose
+4:53:50 PM [vite] (client) page reload index.html
+4:53:50 PM [vite] (client) page reload index.html
+4:55:17 PM [vite] (client) hmr update /src/assets/css/style.css?direct
+4:55:33 PM [vite] (client) hmr update /src/assets/css/style.css?direct
+4:56:05 PM [vite] (client) page reload src/assets/js/main.js
+4:56:17 PM [vite] (client) page reload src/assets/js/main.js
+5:02:05 PM [vite] (client) page reload index.html
