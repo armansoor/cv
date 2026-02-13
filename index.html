@@ -16,8 +16,17 @@
   <body>
     <div class="comic-bg"></div>
 
+    <nav class="comic-nav">
+      <button class="nav-btn active" data-target="hero">COVER</button>
+      <button class="nav-btn" data-target="origin">ORIGIN</button>
+      <button class="nav-btn" data-target="arsenal">ARSENAL</button>
+      <button class="nav-btn" data-target="sagas">SAGAS</button>
+      <button class="nav-btn" data-target="feats">FEATS</button>
+      <button class="nav-btn" data-target="training">TRAINING</button>
+    </nav>
+
     <!-- Hero / Cover Page -->
-    <header class="hero-section comic-page">
+    <header class="hero-section comic-page active" id="hero">
       <div class="hero-content">
         <div class="issue-number">ISSUE #1: THE ORIGIN</div>
         <h1 class="comic-title glitch" data-text="ABDUR RAHMAN MANSOOR">ABDUR RAHMAN MANSOOR</h1>
@@ -32,9 +41,9 @@
       </div>
     </header>
 
-    <main>
+    <main class="content-wrapper">
       <!-- Section 1: Origin Story -->
-      <section class="comic-page origin-section">
+      <section id="origin" class="comic-page origin-section">
         <h2 class="section-title">ORIGIN STORY</h2>
 
         <div class="panel-layout">
@@ -63,7 +72,7 @@
       </section>
 
       <!-- Section 2: The Arsenal (Skills) -->
-      <section class="comic-page arsenal-section">
+      <section id="arsenal" class="comic-page arsenal-section">
         <h2 class="section-title">THE ARSENAL</h2>
         <div class="skills-grid">
 
@@ -107,7 +116,7 @@
       </section>
 
       <!-- Section 3: Sagas (Experience) -->
-      <section class="comic-page sagas-section">
+      <section id="sagas" class="comic-page sagas-section">
         <h2 class="section-title">THE SAGAS</h2>
 
         <div class="timeline">
@@ -179,7 +188,7 @@
       </section>
 
       <!-- Section 4: Feats of Strength (Projects) -->
-      <section class="comic-page feats-section">
+      <section id="feats" class="comic-page feats-section">
         <h2 class="section-title">FEATS OF STRENGTH</h2>
         <div class="projects-grid">
             <a href="https://armansoor.github.io/arm/" target="_blank" rel="noopener noreferrer" class="project-card comic-panel">
@@ -218,7 +227,7 @@
       </section>
 
       <!-- Section 5: Training Ground -->
-      <section class="comic-page training-section">
+      <section id="training" class="comic-page training-section">
           <h2 class="section-title">TRAINING GROUND</h2>
 
           <div class="comic-panel education-card">
