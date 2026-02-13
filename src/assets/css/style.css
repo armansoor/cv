@@ -2,12 +2,14 @@
   --bg-color: #1a1a2e;
   --panel-bg: #ffffff;
   --text-color: #16213e;
-  --accent-pink: #ff2e63;
-  --accent-cyan: #08d9d6;
-  --accent-yellow: #f9ed69;
+  --accent-pink: #ff0055;
+  --accent-cyan: #00f0ff;
+  --accent-yellow: #f9d71c;
   --border-color: #000000;
-  --border-width: 4px;
-  --shadow-offset: 8px;
+  --border-width: 3px;
+  --shadow-offset: 6px;
+  --font-header: 'Bangers', cursive;
+  --font-body: 'Space Grotesk', sans-serif;
 }
 
 * {
@@ -17,236 +19,448 @@
 }
 
 body {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-body);
   background-color: var(--bg-color);
-  color: var(--text-color);
+  color: #fff; /* Default text white on dark bg */
   line-height: 1.6;
   overflow-x: hidden;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Comic Background Pattern */
 .comic-bg {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: radial-gradient(var(--text-color) 1px, transparent 1px);
-  background-size: 20px 20px;
-  opacity: 0.1;
+  background-image:
+    radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+    linear-gradient(to bottom right, rgba(26, 26, 46, 0.9), rgba(26, 26, 46, 0.7));
+  background-size: 20px 20px, 100% 100%;
   z-index: -1;
   pointer-events: none;
 }
 
-/* Header */
-.main-header {
+/* Common Comic Elements */
+.comic-page {
   padding: 4rem 2rem;
-  text-align: center;
-  position: relative;
-}
-
-.comic-title {
-  font-family: 'Bangers', cursive;
-  font-size: 6rem;
-  color: var(--accent-yellow);
-  text-transform: uppercase;
-  text-shadow:
-    4px 4px 0 var(--border-color),
-    8px 8px 0 var(--accent-pink);
-  letter-spacing: 2px;
-  margin-bottom: 0.5rem;
-  position: relative;
-  display: inline-block;
-}
-
-.subtitle {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.5rem;
-  color: var(--accent-cyan);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  background-color: var(--text-color);
-  padding: 0.5rem 1rem;
-  display: inline-block;
-  transform: rotate(-2deg);
-  border: var(--border-width) solid var(--border-color);
-  box-shadow: 5px 5px 0 var(--accent-pink);
-}
-
-/* Glitch Effect */
-.glitch {
-  animation: glitch 1s linear infinite;
-}
-
-@keyframes glitch {
-  2%, 64% { transform: translate(2px,0) skew(0deg); }
-  4%, 60% { transform: translate(-2px,0) skew(0deg); }
-  62% { transform: translate(0,0) skew(5deg); }
-}
-
-/* Main Grid */
-.comic-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 3rem;
-  padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  flex: 1;
+  min-height: 80vh; /* Each section takes significant space */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* Panels */
-.panel {
-  background-color: var(--panel-bg);
+.section-title {
+  font-family: var(--font-header);
+  font-size: 4rem;
+  color: var(--accent-yellow);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 3rem;
+  text-shadow: 4px 4px 0 var(--border-color);
+  letter-spacing: 2px;
+  transform: rotate(-1deg);
+  border-bottom: 4px solid var(--accent-pink);
+  display: inline-block;
+  align-self: center;
+  padding: 0 2rem;
+  background: var(--bg-color); /* To cover line behind if needed */
+}
+
+.comic-panel {
+  background: var(--panel-bg);
+  color: var(--text-color);
   border: var(--border-width) solid var(--border-color);
   box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--border-color);
   padding: 2rem;
   position: relative;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
+  transition: transform 0.1s ease-out, box-shadow 0.2s;
 
-.panel:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: calc(var(--shadow-offset) + 2px) calc(var(--shadow-offset) + 2px) 0 var(--border-color);
-}
-
-.panel {
+  /* Tilt Effect Variables */
   --tilt-x: 0deg;
   --tilt-y: 0deg;
-  --base-rotate: 0deg;
-  transform: var(--base-rotate) perspective(1000px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transform: perspective(1000px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
 }
 
-.panel:nth-child(1) { --base-rotate: rotate(1deg); }
-.panel:nth-child(2) { --base-rotate: rotate(-1deg); }
-.panel:nth-child(3) { --base-rotate: rotate(1.5deg); }
-/* Hover effect handled by JS for tilt, but we can add scale or translate here if needed,
-   though JS overrides transform. Using variables avoids override issues. */
+.comic-panel:hover {
+  /* transform: translate(-2px, -2px); Removed to avoid conflict with tilt */
+  box-shadow: calc(var(--shadow-offset) + 4px) calc(var(--shadow-offset) + 4px) 0 var(--accent-cyan);
+  z-index: 10;
+}
 
-
-.panel-title {
-  font-family: 'Bangers', cursive;
-  font-size: 2.5rem;
+.caption {
+  position: absolute;
+  top: -15px;
+  left: 10px;
+  background: var(--accent-yellow);
   color: var(--text-color);
-  margin-bottom: 1.5rem;
-  text-decoration: underline;
-  text-decoration-color: var(--accent-cyan);
-  text-decoration-thickness: 4px;
+  font-family: var(--font-header);
+  padding: 0.2rem 1rem;
+  border: var(--border-width) solid var(--border-color);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+  z-index: 2;
 }
 
-/* Specific Panel Styles */
-.about-panel {
-  border-top: 8px solid var(--accent-pink);
+/* Hero Section */
+.hero-section {
+  text-align: center;
+  min-height: 90vh;
 }
 
-.skills-panel {
-  border-top: 8px solid var(--accent-yellow);
-}
-
-.contact-panel {
-  border-top: 8px solid var(--accent-cyan);
-}
-
-/* Speech Bubble */
-.speech-bubble {
-  background: #f0f0f0;
-  padding: 1.5rem;
-  border-radius: 1rem;
-  border: 2px solid var(--border-color);
+.hero-content {
+  border: var(--border-width) solid var(--accent-cyan);
+  padding: 4rem;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
   position: relative;
 }
 
-.speech-bubble::after {
-  content: '';
-  position: absolute;
-  bottom: -20px;
-  left: 20px;
-  border-width: 20px 20px 0;
-  border-style: solid;
-  border-color: var(--border-color) transparent;
-  display: block;
-  width: 0;
+.issue-number {
+  font-family: var(--font-header);
+  color: var(--accent-pink);
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
 }
 
-.speech-bubble::before {
-  content: '';
-  position: absolute;
-  bottom: -16px;
-  left: 22px;
-  border-width: 18px 18px 0;
-  border-style: solid;
-  border-color: #f0f0f0 transparent;
-  display: block;
-  width: 0;
-  z-index: 1;
+.comic-title {
+  font-family: var(--font-header);
+  font-size: clamp(3rem, 10vw, 7rem); /* Responsive font size */
+  color: #fff;
+  line-height: 1;
+  text-shadow:
+    3px 3px 0 var(--accent-pink),
+    6px 6px 0 var(--accent-cyan);
+  margin-bottom: 1rem;
 }
 
-/* List */
-.comic-list {
+.hero-badge {
+  display: inline-block;
+  background: var(--accent-yellow);
+  color: var(--border-color);
+  font-weight: 700;
+  font-size: 1.5rem;
+  padding: 0.5rem 2rem;
+  border: var(--border-width) solid var(--border-color);
+  transform: rotate(2deg);
+  box-shadow: 4px 4px 0 var(--border-color);
+  margin-bottom: 3rem;
+}
+
+.contact-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.comic-btn {
+  background: var(--text-color);
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  font-weight: 700;
+  border: 2px solid var(--accent-cyan);
+  transition: all 0.3s;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.comic-btn:hover {
+  background: var(--accent-cyan);
+  color: var(--text-color);
+  box-shadow: 0 0 15px var(--accent-cyan);
+}
+
+.location-tag {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  color: var(--accent-yellow);
+}
+
+/* Origin Story (About) */
+.origin-section .panel-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.narration-box {
+  border-left: 10px solid var(--accent-pink);
+  font-size: 1.2rem;
+  grid-column: 1 / -1;
+}
+
+.mission-box {
+  background-color: #f0f8ff;
+  border-top: 5px solid var(--accent-cyan);
+}
+
+.summary-box {
+  background-color: #fff8e1;
+  border-top: 5px solid var(--accent-yellow);
+}
+
+.stat-list {
   list-style: none;
 }
 
-.comic-list li {
-  font-size: 1.2rem;
+.stat-list li {
   margin-bottom: 0.5rem;
-  padding-left: 1.5rem;
-  position: relative;
-  font-weight: 700;
+  font-size: 0.95rem;
 }
 
-.comic-list li::before {
-  content: '>';
-  position: absolute;
-  left: 0;
-  color: var(--accent-pink);
-  font-family: 'Bangers', cursive;
+/* Arsenal (Skills) */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
 }
 
-/* Contact */
-.contact-details p {
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-}
-
-.contact-details a {
-  color: var(--accent-pink);
-  text-decoration: none;
-  font-weight: 700;
-  background: linear-gradient(to top, var(--accent-yellow) 50%, transparent 50%);
-  background-size: 100% 200%;
-  background-position: top;
-  transition: background-position 0.3s;
-}
-
-.contact-details a:hover {
-  background-position: bottom;
+.skill-card h3 {
+  font-family: var(--font-header);
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
   color: var(--text-color);
+  border-bottom: 2px dashed var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+.power-item {
+  margin-bottom: 1rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.bar {
+  height: 12px;
+  background: #eee;
+  border: 2px solid var(--border-color);
+  margin-top: 5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%; /* controlled by inline style on parent but need inner element for color */
+  background: var(--accent-pink); /* Default color, can vary */
+  transform-origin: left;
+}
+
+/* Skill Bar Colors Variances */
+.skill-card:nth-child(1) .bar { background: var(--accent-pink); }
+.skill-card:nth-child(2) .bar { background: var(--accent-cyan); }
+.skill-card:nth-child(3) .bar { background: var(--accent-yellow); }
+.skill-card:nth-child(4) .bar { background: #9b59b6; }
+
+
+/* Sagas (Timeline) */
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  background: var(--accent-cyan);
+  transform: translateX(-50%);
+}
+
+.timeline-entry {
+  width: 45%;
+  margin-bottom: 2rem;
+  position: relative;
+  clear: both;
+}
+
+.timeline-entry:nth-child(odd) {
+  float: left;
+  transform: rotate(-1deg);
+}
+
+.timeline-entry:nth-child(even) {
+  float: right;
+  transform: rotate(1deg);
+}
+
+/* Timeline Dots */
+.timeline-entry::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  width: 20px;
+  height: 20px;
+  background: var(--accent-yellow);
+  border: 3px solid var(--border-color);
+  border-radius: 50%;
+}
+
+.timeline-entry:nth-child(odd)::after {
+  right: -5.5rem; /* Adjust based on width/gap */
+  /* This is tricky with responsive, simplified below */
+  display: none; /* Hiding complex dots for now to ensure cleanliness */
+}
+
+/* Better Timeline CSS for responsiveness */
+@media (max-width: 768px) {
+  .timeline::before {
+    left: 20px;
+  }
+  .timeline-entry {
+    width: 100%;
+    float: none;
+    margin-left: 40px;
+    width: calc(100% - 40px);
+  }
+}
+
+.entry-header h3 {
+  font-family: var(--font-header);
+  font-size: 1.5rem;
+  line-height: 1.1;
+}
+
+.entry-header .company {
+  display: block;
+  font-weight: 700;
+  color: var(--accent-pink);
+  margin: 0.2rem 0;
+}
+
+.entry-header .date {
+  font-size: 0.8rem;
+  color: #666;
+  font-style: italic;
+}
+
+.entry-body ul {
+  padding-left: 1.2rem;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* Feats (Projects) */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.project-card {
+  text-align: center;
+  background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+  border: var(--border-width) solid var(--border-color);
+  text-decoration: none;
+  display: block;
+  transition: transform 0.3s;
+}
+
+.project-card:hover {
+  transform: scale(1.05) rotate(1deg);
+  z-index: 10;
+}
+
+.project-title {
+  font-family: var(--font-header);
+  font-size: 1.5rem;
+  color: var(--text-color);
+  background: var(--accent-cyan);
+  display: inline-block;
+  padding: 0.2rem 1rem;
+  border: 2px solid var(--border-color);
+  margin-bottom: 1rem;
+  transform: rotate(-2deg);
+}
+
+.project-desc {
+  color: var(--text-color);
+  font-weight: 700;
+}
+
+/* Training (Education) */
+.education-card {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  border-top: 10px solid var(--accent-yellow);
+}
+
+.education-card h3 {
+  font-family: var(--font-header);
+  font-size: 2rem;
+}
+
+.grad-year {
+  display: inline-block;
+  background: var(--text-color);
+  color: #fff;
+  padding: 0.2rem 0.8rem;
+  margin-top: 1rem;
+  font-family: var(--font-header);
+  letter-spacing: 1px;
 }
 
 /* Footer */
 .main-footer {
   text-align: center;
-  padding: 2rem;
-  margin-top: 2rem;
-  color: #888;
-  font-size: 0.9rem;
+  padding: 4rem 2rem;
+  background: #000;
+  color: #fff;
+  margin-top: 4rem;
+  border-top: 4px solid var(--accent-pink);
 }
 
-/* Responsive */
+.footer-title {
+  font-family: var(--font-header);
+  font-size: 3rem;
+  color: var(--accent-yellow);
+  margin-bottom: 1rem;
+}
+
+/* Glitch Animation */
+.glitch {
+  animation: glitch 2s infinite;
+}
+
+@keyframes glitch {
+  0% { text-shadow: 3px 3px 0 var(--accent-pink), 6px 6px 0 var(--accent-cyan); }
+  20% { text-shadow: 3px 3px 0 var(--accent-cyan), 6px 6px 0 var(--accent-pink); }
+  40% { text-shadow: -3px -3px 0 var(--accent-pink), -6px -6px 0 var(--accent-yellow); }
+  60% { text-shadow: 3px -3px 0 var(--accent-yellow), -3px 3px 0 var(--accent-cyan); }
+  100% { text-shadow: 3px 3px 0 var(--accent-pink), 6px 6px 0 var(--accent-cyan); }
+}
+
+/* Responsive Fixes */
 @media (max-width: 768px) {
-  .comic-title {
-    font-size: 4rem;
-  }
-
-  .comic-grid {
+  .origin-section .panel-layout {
     grid-template-columns: 1fr;
-    padding: 1rem;
   }
 
-  .panel {
-    transform: rotate(0) !important; /* Remove rotation on mobile for cleaner look */
+  .section-title {
+    font-size: 2.5rem;
+  }
+
+  .comic-page {
+    padding: 2rem 1rem;
   }
 }
