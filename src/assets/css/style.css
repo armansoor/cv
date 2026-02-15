@@ -303,7 +303,7 @@ body {
 /* Origin Layout */
 .panel-layout {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
   max-width: 1200px;
   width: 100%;
@@ -407,7 +407,7 @@ body {
 /* Feats (Projects) */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
   max-width: 1200px;
   width: 100%;
@@ -516,5 +516,8 @@ body {
   }
   .comic-page {
     padding: 1rem;
+  }
+  .comic-panel {
+    padding: 1.5rem;
   }
 }
