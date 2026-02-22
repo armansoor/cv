@@ -1,97 +1,77 @@
-// main.js - Comic Book Logic
+const navButtons = document.querySelectorAll('.nav-btn');
+const sections = document.querySelectorAll('.comic-page');
+const panels = document.querySelectorAll('.comic-panel');
+const glitchText = document.querySelector('.glitch');
 
-document.addEventListener('DOMContentLoaded', () => {
+function animateSkills(section) {
+  const bars = section.querySelectorAll('.bar');
+  bars.forEach(bar => {
+    bar.style.width = '0%';
+    setTimeout(() => {
+      bar.style.width = bar.dataset.width || '100%';
+    }, 100);
+  });
+}
 
-    // --- Tab Navigation Logic ---
-    const navButtons = document.querySelectorAll('.nav-btn');
-    const sections = document.querySelectorAll('.comic-page');
+function updateActiveSection(targetId) {
+  sections.forEach(sec => {
+    const isHero = targetId === 'hero' && sec.classList.contains('hero-section');
+    const isActive = sec.id === targetId || isHero;
 
-    navButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const targetId = btn.getAttribute('data-target');
+    sec.classList.toggle('active', isActive);
 
-            // Update Navigation State
-            navButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            // Update Section Visibility
-            sections.forEach(sec => {
-                if (sec.id === targetId || (targetId === 'hero' && sec.classList.contains('hero-section'))) {
-                    sec.classList.add('active');
-                    // Trigger animations for the newly active section
-                    handleSectionAnimations(sec);
-                } else {
-                    sec.classList.remove('active');
-                }
-            });
-        });
-    });
-
-
-    // --- 3D Tilt Effect for Comic Panels ---
-    const panels = document.querySelectorAll('.comic-panel');
-
-    panels.forEach(panel => {
-        panel.addEventListener('mousemove', (e) => {
-            const rect = panel.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-
-            const rotateX = ((y - centerY) / centerY) * -5; // Tilt X axis
-            const rotateY = ((x - centerX) / centerX) * 5;  // Tilt Y axis
-
-            panel.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-        });
-
-        panel.addEventListener('mouseleave', () => {
-            panel.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale(1)`;
-        });
-    });
-
-    // --- Glitch Text Randomizer ---
-    const glitchText = document.querySelector('.glitch');
-    if (glitchText) {
-        setInterval(() => {
-            const skew = Math.random() * 20 - 10;
-            glitchText.style.transform = `skew(${skew}deg)`;
-            setTimeout(() => {
-                glitchText.style.transform = 'skew(0deg)';
-            }, 100);
-        }, 3000);
+    if (isActive && sec.id === 'arsenal') {
+      animateSkills(sec);
     }
+  });
+}
 
-    // --- Animation Handling ---
-    function handleSectionAnimations(section) {
-        // Skill Bars Animation
-        if (section.id === 'arsenal') {
-            const bars = section.querySelectorAll('.bar');
-            bars.forEach(bar => {
-                // Store the original width if not already stored
-                if (!bar.dataset.width) {
-                    // Check style attribute first
-                    const styleWidth = bar.getAttribute('style');
-                    if (styleWidth && styleWidth.includes('width:')) {
-                         bar.dataset.width = styleWidth.split('width:')[1].split(';')[0].trim();
-                    } else {
-                        // Fallback or if style is computed
-                         bar.dataset.width = bar.style.width || '100%';
-                    }
-                }
+function handleNavClick(e) {
+  const btn = e.currentTarget;
+  const targetId = btn.dataset.target;
 
-                // Reset width to 0
-                bar.style.width = '0%';
+  navButtons.forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
 
-                // Animate to full width
-                setTimeout(() => {
-                    bar.style.width = bar.dataset.width;
-                }, 100);
-            });
-        }
-    }
+  updateActiveSection(targetId);
+}
 
-    // Initialize animations for the default active section (Hero) if needed
-    // Hero has glitch effect which runs automatically via CSS/JS interval
+function handlePanelMove(e) {
+  const panel = e.currentTarget;
+  const rect = panel.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  const centerX = rect.width / 2;
+  const centerY = rect.height / 2;
+
+  const rotateX = ((y - centerY) / centerY) * -5;
+  const rotateY = ((x - centerX) / centerX) * 5;
+
+  panel.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+}
+
+function resetPanel(e) {
+  e.currentTarget.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+}
+
+function startGlitchEffect() {
+  if (!glitchText) return;
+
+  setInterval(() => {
+    const skew = Math.random() * 20 - 10;
+    glitchText.style.transform = `skew(${skew}deg)`;
+    setTimeout(() => {
+      glitchText.style.transform = 'skew(0deg)';
+    }, 100);
+  }, 3000);
+}
+
+navButtons.forEach(btn => btn.addEventListener('click', handleNavClick));
+
+panels.forEach(panel => {
+  panel.addEventListener('mousemove', handlePanelMove);
+  panel.addEventListener('mouseleave', resetPanel);
 });
+
+startGlitchEffect();

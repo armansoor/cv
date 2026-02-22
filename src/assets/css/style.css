@@ -1,8 +1,8 @@
 :root {
-  --primary-color: #ff0055; /* Neon Pink */
-  --secondary-color: #00e5ff; /* Cyan */
-  --accent-color: #ffcc00; /* Yellow */
-  --bg-color: #1a1a2e; /* Dark Blue/Black */
+  --primary-color: #ff0055;
+  --secondary-color: #00e5ff;
+  --accent-color: #ffcc00;
+  --bg-color: #1a1a2e;
   --panel-bg: #16213e;
   --text-color: #ffffff;
   --font-heading: 'Bangers', cursive;
@@ -20,11 +20,10 @@ body {
   color: var(--text-color);
   font-family: var(--font-body);
   overflow-x: hidden;
-  height: 100vh; /* Lock height for tabbed layout */
-  overflow-y: hidden; /* Hide scrollbar for the body */
+  height: 100vh;
+  overflow-y: hidden;
 }
 
-/* Comic Background Effect */
 .comic-bg {
   position: fixed;
   top: 0;
@@ -39,7 +38,6 @@ body {
   z-index: -1;
 }
 
-/* Navigation Tabs */
 .comic-nav {
   display: flex;
   justify-content: center;
@@ -85,7 +83,6 @@ body {
   transform: translate(2px, 2px);
 }
 
-/* Page Layout & transitions */
 .content-wrapper {
   position: relative;
   width: 100%;
@@ -102,7 +99,7 @@ body {
   width: 100%;
   height: 100%;
   padding: 2rem;
-  overflow-y: auto; /* Allow scrolling within the tab */
+  overflow-y: auto;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
@@ -110,7 +107,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Hide scrollbar for cleaner look */
   scrollbar-width: thin;
   scrollbar-color: var(--secondary-color) var(--bg-color);
 }
@@ -122,11 +118,9 @@ body {
   z-index: 10;
 }
 
-/* Adjust Hero Section */
 .hero-section {
   justify-content: center;
   text-align: center;
-  /* Override absolute positioning for the initial view if needed, but absolute works for tabs */
 }
 
 .hero-content {
@@ -160,7 +154,6 @@ body {
   position: relative;
 }
 
-/* Glitch Effect */
 .glitch {
   position: relative;
 }
@@ -249,7 +242,6 @@ body {
   font-weight: bold;
 }
 
-/* Sections Common */
 .section-title {
   font-family: var(--font-heading);
   font-size: 4rem;
@@ -261,7 +253,6 @@ body {
   margin-top: 2rem;
 }
 
-/* Panels */
 .comic-panel {
   background: var(--panel-bg);
   border: 3px solid #fff;
@@ -300,7 +291,6 @@ body {
   z-index: 2;
 }
 
-/* Origin Layout */
 .panel-layout {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -328,7 +318,6 @@ body {
   font-size: 1.1rem;
 }
 
-/* Arsenal (Skills) */
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -356,12 +345,11 @@ body {
   height: 10px;
   background: var(--primary-color);
   margin-top: 5px;
-  width: 0; /* JS Animation target */
+  width: 0;
   transition: width 1s ease-out;
   box-shadow: 0 0 10px var(--primary-color);
 }
 
-/* Sagas (Experience) */
 .timeline {
   max-width: 800px;
   width: 100%;
@@ -404,7 +392,6 @@ body {
   margin-bottom: 0.5rem;
 }
 
-/* Feats (Projects) */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -436,7 +423,6 @@ body {
   font-size: 1.2rem;
 }
 
-/* Training (Education) */
 .education-container {
   display: flex;
   flex-direction: column;
@@ -470,7 +456,6 @@ body {
   border-radius: 4px;
 }
 
-/* Footer */
 .main-footer {
   text-align: center;
   padding: 0.5rem 1rem;
@@ -496,7 +481,6 @@ body {
     color: var(--text-color);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .comic-title {
     font-size: 3rem;
