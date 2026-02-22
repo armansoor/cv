@@ -2,6 +2,8 @@ const navButtons = document.querySelectorAll('.nav-btn');
 const sections = document.querySelectorAll('.comic-page');
 const panels = document.querySelectorAll('.comic-panel');
 const glitchText = document.querySelector('.glitch');
+const themeToggle = document.querySelector('.theme-toggle');
+const themeIcon = document.querySelector('.theme-icon');
 
 function animateSkills(section) {
   const bars = section.querySelectorAll('.bar');
@@ -45,10 +47,10 @@ function handlePanelMove(e) {
   const centerX = rect.width / 2;
   const centerY = rect.height / 2;
 
-  const rotateX = ((y - centerY) / centerY) * -5;
-  const rotateY = ((x - centerX) / centerX) * 5;
+  const rotateX = ((y - centerY) / centerY) * -8; // Increased tilt
+  const rotateY = ((x - centerX) / centerX) * 8;
 
-  panel.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+  panel.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
 }
 
 function resetPanel(e) {
@@ -67,6 +69,28 @@ function startGlitchEffect() {
   }, 3000);
 }
 
+function toggleTheme() {
+  const isDark = document.body.getAttribute('data-theme') !== 'light';
+
+  if (isDark) {
+    document.body.setAttribute('data-theme', 'light');
+    themeIcon.textContent = '☀️';
+    localStorage.setItem('theme', 'light');
+  } else {
+    document.body.removeAttribute('data-theme');
+    themeIcon.textContent = '🌙';
+    localStorage.setItem('theme', 'dark');
+  }
+}
+
+function initTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'light') {
+    document.body.setAttribute('data-theme', 'light');
+    themeIcon.textContent = '☀️';
+  }
+}
+
 navButtons.forEach(btn => btn.addEventListener('click', handleNavClick));
 
 panels.forEach(panel => {
@@ -74,4 +98,7 @@ panels.forEach(panel => {
   panel.addEventListener('mouseleave', resetPanel);
 });
 
+themeToggle.addEventListener('click', toggleTheme);
+
 startGlitchEffect();
+initTheme();
