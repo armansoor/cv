@@ -646,13 +646,69 @@ body {
   .section-title { font-size: 3rem; }
   .hero-content { padding: 2rem; }
 
-  .comic-nav { gap: 0.5rem; padding: 0.5rem; }
-  .nav-btn { font-size: 0.9rem; padding: 0.4rem 0.8rem; }
+  .comic-nav {
+    top: auto;
+    bottom: 0;
+    border-bottom: none;
+    border-top: 3px solid var(--primary-color);
+    width: 100%;
+    padding: 0.5rem;
+    gap: 0.5rem;
+    overflow-x: auto; /* allow horizontal scroll if tabs are wide */
+    justify-content: flex-start; /* align left for scroll */
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap; /* prevent stacking */
+  }
 
-  .timeline::after { left: 20px; transform: none; }
-  .timeline-entry { width: 100%; margin-left: 40px !important; margin-right: 0 !important; }
-  .timeline-entry::before { left: -28px !important; right: auto !important; }
-  .timeline-entry::after { display: none; } /* hide connector lines on mobile for simplicity */
+  .nav-btn {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    flex: 0 0 auto; /* don't shrink */
+    margin-bottom: 0.5rem; /* for safe area */
+  }
 
-  .comic-page { padding-top: 7rem; } /* more space for wrapped nav */
+  /* Adjust page padding for bottom nav */
+  .comic-page {
+    padding: 4rem 1rem 6rem 1rem;
+    height: calc(100% - 60px); /* rough height of bottom nav */
+  }
+
+  /* Move footer up so it's not hidden by nav */
+  .main-footer {
+    bottom: 70px; /* above nav */
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    z-index: 150; /* above page content, below nav */
+  }
+
+  /* Adjust timeline for mobile vertical list */
+  .timeline::after {
+    left: 20px;
+    transform: none;
+  }
+
+  .timeline-entry {
+    width: calc(100% - 40px);
+    margin-left: 40px !important;
+    margin-right: 0 !important;
+    margin-bottom: 2rem;
+  }
+
+  .timeline-entry::before {
+    left: -28px !important;
+    right: auto !important;
+  }
+
+  .timeline-entry::after {
+    display: none;
+  }
+
+  /* Theme toggle position tweak */
+  .theme-toggle {
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
 }

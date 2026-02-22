@@ -94,8 +94,16 @@ function initTheme() {
 navButtons.forEach(btn => btn.addEventListener('click', handleNavClick));
 
 panels.forEach(panel => {
-  panel.addEventListener('mousemove', handlePanelMove);
-  panel.addEventListener('mouseleave', resetPanel);
+  if (window.matchMedia('(hover: hover)').matches) {
+    panel.addEventListener('mousemove', handlePanelMove);
+    panel.addEventListener('mouseleave', resetPanel);
+  } else {
+    // Optional: Add simple tap effect for touch
+    panel.addEventListener('click', () => {
+        panel.style.transform = 'scale(0.98)';
+        setTimeout(() => panel.style.transform = 'scale(1)', 150);
+    });
+  }
 });
 
 themeToggle.addEventListener('click', toggleTheme);
